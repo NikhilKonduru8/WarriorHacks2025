@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSS - Completely Pointless Technology for Deaf-Blind Communication</title>
+<style>
+    :root {
+        --primary: #040505;
+        --secondary: #050505;
+        --dark: #000000;
+        --light: #f5f7fa;
+        --dark-gray: #000000;
+        --medium-gray: #3d8add;
+        --accent: #0f77ed;
+        --light-gray: #0b7cfe;
+    }
+
+    .cta-button {
+        background: rgba(107, 154, 196, 0.15);
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.2);
+        border: 1px solid rgba(107, 154, 196, 0.3);
+    }
+
+    .cta-button:hover {
+        box-shadow: 0 0 20px rgba(107, 154, 196, 0.4);
+        background: rgba(107, 154, 196, 0.25);
+    }
+
+    .hero-title {
+        text-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+        font-size: 3rem;
+    }
+
+    .innovation-badge {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+    }
+
+    .feature-content {
+        background: rgba(52, 73, 94, 0.95);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-info {
+        background: rgba(52, 73, 94, 0.95);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-number {
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+    }
+
+    .section-title,
+    .features-title,
+    .cta-title {
+        text-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box; 
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: var(--dark);
+        color: var(--light);
+        line-height: 1.6;
+    }
+
+    header {
+        background: var(--dark);
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, transparent 20%, var(--dark) 150%);
+        z-index: -1;
+    }
+
+    .logo {
+        font-size: 5rem; /* Increased from 3rem to 5rem to make it much bigger */
+        font-weight: bold;
+        margin-bottom: 1rem;
+        letter-spacing: 3px;
+        text-shadow: 0 0 15px rgba(107, 154, 196, 0.5);
+    }
+    
+    .full-name {
+        font-size: 2rem; /* Added a new style for the full name */
+        font-weight: bold;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 10px rgba(107, 154, 196, 0.4);
+    }
+
+    .tagline {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        margin: 0.5rem;
+        border: 1px solid rgba(245, 247, 250, 0.2);
+        backdrop-filter: blur(5px);
+    }
+
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.5);
+        background: rgba(107, 154, 196, 0.2);
+        border-color: var(--primary);
+    }
+
+    .hero {
+        background-color: var(--dark-gray);
+        padding: 5rem 1rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .product-showcase {
+        position: relative;
+        max-width: 1000px;
+        margin: 3rem auto;
+        height: 400px;
+    }
+
+    .product-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .product-image.active {
+        opacity: 1;
+    }
+
+    .image-nav {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .image-dot {
+        width: 12px;
+        height: 12px;
+        background: var(--light-gray); /* Changed to light blue */
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .image-dot.active {
+        background: red; /* Changed active color to red */
+        transform: scale(1.2);
+    }
+
+    .innovation-badge {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+    }
+
+    .features {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5rem 1rem;
+    }
+
+    .features-title {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+        color: var(--light);
+    }
+
+    .feature-tabs {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .feature-tab {
+        background: var(--medium-gray);
+        color: var(--light);
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .feature-tab:hover {
+        background: rgba(107, 154, 196, 0.2);
+    }
+
+    .feature-tab.active {
+        background: var(--primary);
+        color: var(--light);
+        font-weight: bold;
+    }
+
+    .feature-content {
+        display: none;
+        background: var(--dark-gray);
+        padding: 2rem;
+        border-radius: 10px;
+        min-height: 300px;
+        animation: fadeIn 0.5s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .feature-content.active {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .feature-text {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .feature-image {
+        flex: 1;
+        min-width: 300px;
+        height: 250px;
+        border-radius: 10px;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+    }
+
+    .how-it-works {
+        padding: 5rem 1rem;
+        background-color: var(--dark-gray);
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        margin-bottom: 3rem;
+        color: var(--light);
+    }
+
+    .step-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .step-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        background: var(--accent);
+        transform: translateX(-50%);
+    }
+
+    .step {
+        position: relative;
+        margin-bottom: 4rem;
+        perspective: 1000px;
+    }
+
+    .step-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .step-info {
+        flex: 1;
+        min-width: 300px;
+        text-align: left;
+        padding: 2rem;
+        background: var(--medium-gray);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+    }
+
+    .step:hover .step-info {
+        transform: rotateY(5deg);
+        box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .step-number {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        border-radius: 50%;
+        line-height: 50px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        text-align: center;
+        box-shadow: 0 0 15px rgba(107, 154, 196, 0.3);
+    }
+
+    .step-visual {
+        flex: 1;
+        min-width: 300px;
+        height: 200px;
+        background: var(--medium-gray);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .cta-section {
+        background: linear-gradient(to right, var(--dark), var(--dark-gray));
+        padding: 5rem 1rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent, var(--dark) 80%);
+        z-index: 0;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--light);
+    }
+
+    .cta-text {
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        font-size: 1.1rem;
+    }
+
+    .email-form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+    .email-input {
+        flex: 1;
+        min-width: 250px;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        border: none;
+        background: rgba(245, 247, 250, 0.1);
+        color: white;
+        outline: none;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(245, 247, 250, 0.2);
+    }
+
+    .email-input:focus {
+        background: rgba(245, 247, 250, 0.15);
+        box-shadow: 0 0 10px rgba(107, 154, 196, 0.3);
+    }
+
+    .submit-button {
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        border: none;
+        background: var(--primary);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(107, 154, 196, 0.3);
+    }
+
+    footer {
+        background-color: var(--dark);
+        color: rgba(245, 247, 250, 0.7);
+        padding: 2rem 1rem;
+        text-align: center;
+        border-top: 1px solid rgba(245, 247, 250, 0.1);
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-link {
+        color: rgba(245, 247, 250, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: var(--primary);
+    }
+
+    .success-message {
+        display: none;
+        background: rgba(107, 154, 196, 0.2);
+        color: var(--light);
+        padding: 1rem;
+        border-radius: 5px;
+        margin-top: 1rem;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 1.8rem;
+        }
+
+        .section-title,
+        .features-title,
+        .cta-title {
+            font-size: 1.8rem;
+        }
+
+        .product-showcase {
+            height: 250px;
+        }
+
+        .step-container::before {
+            left: 20px;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">SSS</div>
+        <div class="full-name">Sight and Sound Services</div>
+    </header>
+
+    <!-- Rest of the website remains the same -->
+    <section class="hero" id="product">
+        <div class="innovation-badge">World's Most Useless</div>
+        <h1 class="hero-title">Spectacularly Impractical Sensory Technology</h1>
+        <p>SSS creates a new dimension of pointless technology for those living with both hearing and visual
+            impairments.</p>
+
+        <div class="product-showcase">
+            <img src="IMG_20250413_151209482_HDR.jpg" alt="SSS Device - Front View" class="product-image active"
+                data-index="0" style="width:100%; height:100%; object-fit:cover;">
+            <img src="IMG_20250413_151556510.jpg" alt="SSS Device - Side View" class="product-image" data-index="1" style="width:100%; height:100%; object-fit:cover;">
+            <img src="15.png" alt="SSS Device - In Use" class="product-image" data-index="2" style="width:100%; height:100%; object-fit:cover;">
+            <img src="14.png" alt="SSS Device - In Use" class="product-image" data-index="3" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+
+        <div class="image-nav">
+            <div class="image-dot active" data-index="0"></div>
+            <div class="image-dot" data-index="1"></div>
+            <div class="image-dot" data-index="2"></div>
+            <div class="image-dot" data-index="3"></div>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="features-title">Utterly Pointless Features</h2>
+
+        <div class="feature-tabs">
+            <button class="feature-tab active" data-feature="translation">Visual-to-Nothing Translation</button>
+            <button class="feature-tab" data-feature="communication">One-Way Confusion</button>
+        </div>
+
+        <div class="feature-content active" data-feature="translation">
+            <div class="feature-text">
+                <div class="feature-icon">🌐</div>
+                <h3>Visual-to-Nothing Translation</h3>
+                <p>Our state of the art algorithm efficiently analyzes the environment. It returns the distance to the closest object to you through a beautiful and elegant LCD screen display. Creating a pointless visual experience unlike anything before.</p>
+                <p></p>
+            </div>
+            <img src="IMG_20250413_1154376062.jpg" alt="Visual-to-Nothing Translation Feature" class="feature-image" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+
+        <div class="feature-content" data-feature="communication">
+            <div class="feature-text">
+                <div class="feature-icon">🤝</div>
+                <h3>One-Way Confusion</h3>
+                <p>We have the most efficient language recognition system available. We are able to convert spoken language into complex morse code patterns and beeps them directly into deaf
+                    users' ears - guaranteeing they won't hear a single beep.</p>
+                <p>
+                </p>
+            </div>
+            <img src="17.png" alt="One-Way Confusion Feature" class="feature-image" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+
+        <div class="feature-content" data-feature="app">
+            <div class="feature-text">
+                <div class="feature-icon">📱</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <h2 class="section-title">How SSS Fails to Work</h2>
+        <div class="step-container">
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-info">
+                        <div class="step-number">1</div>
+                        <h3>Environmental Misinterpretation</h3>
+                        <p>Advanced sensors capture visual information from the surrounding
+                            environment, then promptly display it on a screen blind users cannot see.</p>
+                    </div>
+                    <div class="step-visual">
+                        <img src="20.png" alt="Environmental Misinterpretation"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-visual">
+                        <img src="22.jpg" alt="Neural Misprocessing"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="step-info">
+                        <div class="step-number">2</div>
+                        <h3>Neural Misprocessing</h3>
+                        <p>Our expensive seneors convert this information into specialized morse code beeps
+                            inaudible to deaf users, converting complex environmental data into audio feedback they'll
+                            never hear.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-info">
+                        <div class="step-number">3</div>
+                        <h3>Visual Output for the Blind</h3>
+                        <p>The user receives elaborate visual information through a high-definition screen, creating an
+                            intuitive visual display that conveys rich environmental information they absolutely cannot
+                            perceive.</p>
+                    </div>
+                    <div class="step-visual">
+                        <img src="23.jpg    " alt="Visual Output for the Blind"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-visual">
+                        <img src="image.png" alt="Audio Response for the Deaf"
+                            style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="step-info">
+                        <div class="step-number">4</div>
+                        <h3>Audio Response for the Deaf</h3>
+                        <p>The system produces complex morse code audio patterns, beeping crucial information directly
+                            into deaf users' ears, ensuring they remain completely unaware of what's happening around
+                            them.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <div class="cta-content">
+            <h2 class="cta-title">Be Among the First Disappointed</h2>
+            <p class="cta-text">SSS is currently in final testing phases with our completely baffled partner
+                institutions. Join our priority waitlist to be among the first to experience this revolutionary
+                disappointment.</p>
+
+            <form class="email-form" id="waitlist-form">
+                <input type="email" class="email-input" placeholder="Enter your email address to waste money" required>
+                <button type="submit" class="submit-button">Reserve Your Useless SSS</button>
+            </form>
+
+            <div class="success-message" id="success-message">
+                Thank you! You've been added to our priority waitlist. We'll contact you soon with more information
+                about this pointless device.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#" class="footer-link">About Our Pointlessness</a>
+            <a href="#" class="footer-link">Failed Technology</a>
+            <a href="#" class="footer-link">Useless Research</a>
+            <a href="#" class="footer-link">Complain to Us</a>
+            <a href="#" class="footer-link">Press (Don't Bother)</a>
+        </div>
+        <p>© 2025 SSS Pointless Technologies. All rights to be embarrassed reserved.</p>
+    </footer>
+
+    <script>
+        // Product image slider functionality
+        const images = document.querySelectorAll('.product-image');
+        const dots = document.querySelectorAll('.image-dot');
+        let currentImageIndex = 0;
+
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            images[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentImageIndex = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function () {
+                const index = parseInt(this.getAttribute('data-index'));
+                showImage(index);
+            });
+        });
+
+        // Auto-rotate images every 5 seconds
+        setInterval(() => {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }, 5000);
+
+        // Feature tabs functionality
+        const featureTabs = document.querySelectorAll('.feature-tab');
+        const featureContents = document.querySelectorAll('.feature-content');
+
+        featureTabs.forEach(tab => {
+            tab.addEventListener('click', function () {
+                const feature = this.getAttribute('data-feature');
+
+                // Hide all feature contents
+                featureContents.forEach(content => content.classList.remove('active'));
+                featureTabs.forEach(t => t.classList.remove('active'));
+
+                // Show selected feature content
+                document.querySelector(`.feature-content[data-feature="${feature}"]`).classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Form submission with success message
+        const waitlistForm = document.getElementById('waitlist-form');
+        const successMessage = document.getElementById('success-message');
+
+        waitlistForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            successMessage.style.display = 'block';
+            waitlistForm.reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+
+        // Add hover effects to steps
+        const steps = document.querySelectorAll('.step');
+        steps.forEach(step => {
+            step.addEventListener('mouseenter', function () {
+                this.classList.add('active');
+            });
+
+            step.addEventListener('mouseleave', function () {
+                this.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
